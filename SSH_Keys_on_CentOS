@@ -1,0 +1,25 @@
+# To connect to CentOS using Putty without password
+# Create Key-Pair
+# This will create 2 files:
+# - id_rsa      # This is private key to be used on a Client machine
+# - id_rsa.pub  # This is public key, to be installed on a CentOS server
+ssh-keygen -t rsa
+
+# You need to setup authoriced key files. Copy single line from id_rsa.pub to new file called authorized_keys
+nano ~/.ssh/authorized_keys
+# Set up permissions
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+chown $USER:$USER ~/.ssh -R
+# Setup sshd to use file created
+sudo nano /etc/ssh/sshd_config
+# add line: AuthorizedKeysFile %h/.ssh/authorized_keys
+sudo service ssh restart
+
+# Putty can not use this private key in its current format, you need to convert it using PuttyGen
+# Copy file id_rsa to your Client computer
+# Open PuttyGen
+# Click Conversions, import key, and select file id_rsa
+# Export using Save private key -button
+# In Pytty configuration, select exported ppk-file in category Connection/SSH/Auth
+# Enjoy passwordless connection
