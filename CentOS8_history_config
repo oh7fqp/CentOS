@@ -1,0 +1,16 @@
+# Global config, create new script
+vi /etc/profile.d/history.sh
+# Or just user specific config
+vi ~/.bashrc
+# add timestamps to history
+# ignore dups and also commands starting with empty space, e.g. " cat script.sh"
+# Increase history size to last 100000 commands, -1 would be unlimited
+-----
+export HISTTIMEFORMAT="%F %T "
+export HISTCONTROL=ignoreboth
+export HISTSIZE=100000
+-----
+
+# Load changes without logging out
+source  /etc/profile.d/history.sh
+source  ~/.bashrc
