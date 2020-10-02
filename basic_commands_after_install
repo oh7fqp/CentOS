@@ -22,3 +22,4 @@ dnf install parallel -y
 dnf install nano -y
 dnf install net-tools -y
 dnf install curl -y
+dnf install nmap -y
