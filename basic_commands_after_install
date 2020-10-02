@@ -1,0 +1,24 @@
+# Add new user "yllapito" as administrator
+adduser yllapito
+passwd yllapito
+usermod -aG wheel yllapito
+
+dnf makecache
+dnf -y update
+
+# Install Cockpit if needed
+dnf install cockpit -y
+systemctl start cockpit.socket
+systemctl enable cockpit.socket
+firewall-cmd --add-service=cockpit --permanent
+firewall-cmd --reload
+systemctl enable --now cockpit.socket
+# disk management is not installed as default in CentOS 8, need to install this package
+yum install cockpit-storaged.noarch
+
+# software you may need
+dnf install unzip -y
+dnf install parallel -y
+dnf install nano -y
+dnf install net-tools -y
+dnf install curl -y
